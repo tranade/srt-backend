@@ -1,0 +1,15 @@
+cachetools==5.3.1
+certifi==2023.7.22
+charset-normalizer==3.2.0
+cssselect==1.2.0
+cssutils==2.7.1
+dnspython==2.4.1
+idna==3.4
+lxml==4.9.3
+premailer==3.10.0
+pymongo==4.4.1
+python-dotenv==1.0.0
+pytz==2023.3.post1
+requests==2.31.0
+urllib3==2.0.4
+yagmail==0.15.293
