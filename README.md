@@ -7,7 +7,7 @@ will remain operational even if this service is not running, but the user reques
 be waiting for email with their results that will not come.
 
 ## Installation and Setup
-1. Install Python 3.7 or higher
+1. Install Python 3.10 or higher
 2. Install pip
 3. Run the following command to create a venv: `python3 -m venv venv`
 4. Activate the venv: `source venv/bin/activate`
