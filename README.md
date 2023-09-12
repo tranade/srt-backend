@@ -9,7 +9,7 @@ be waiting for email with their results that will not come.
 ## Installation and Setup
 1. Install Python 3.10 or higher
 2. Install pip
-3. Run the following command to create a venv: `python3 -m venv venv`
+3. Run the following command to create a venv: `python3.10 -m venv venv`
 4. Activate the venv: `source venv/bin/activate`
 5. Install the requirements: `pip install -r requirements.txt`
 6. Create a `.env` file and copy the values from the `.env.example` file
