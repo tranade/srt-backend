@@ -1,5 +1,6 @@
 import os
 import subprocess
+
 from dotenv import load_dotenv
 
 from data_classes.srt_procedure import SRTProcedure
@@ -43,8 +44,9 @@ class SrtController:
             config_file_path = os.path.join(self.config_output_dir, self.config_filename)
             if not os.path.exists(self.config_output_dir):
                 os.makedirs(self.config_output_dir)
-            if os.path.exists(config_file_path):
-                os.remove(config_file_path)
+            else:
+                for filename in os.listdir(self.config_output_dir):
+                    os.remove(os.path.join(self.config_output_dir, filename))
             with open(config_file_path, "w+") as f:
                 for line in instructions:
                     f.write(line + "\n")
@@ -58,5 +60,9 @@ class SrtController:
 
         :return: the paths of the results of the srt process
         """
-        return [os.path.join(os.getenv("CONFIG_OUTPUT_FILE_DIR"), filename) for filename in
-                os.listdir(os.getenv("CONFIG_OUTPUT_FILE_DIR"))]
+        results_path = []
+        folder_dir = os.getenv("CONFIG_OUTPUT_FILE_DIR")
+        for filename in os.listdir(folder_dir):
+            results_path.append(os.path.join(folder_dir, filename))
+
+        return results_path

@@ -15,3 +15,10 @@ be waiting for email with their results that will not come.
 6. Create a `.env` file and copy the values from the `.env.example` file
 7. Populate the `.env` file with the correct values
 8. Run the service: `python3 main.py`
+
+## Usage
+**NOTE:** If the computer has been shut down or the service has been stopped and has been previously setup, then the
+following steps are all that is needed to run the service:
+1. Activate the venv: `source venv/bin/activate`
+2. Run the service: `python3 main.py`
+
