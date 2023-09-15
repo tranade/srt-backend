@@ -2,9 +2,7 @@
 
 ## Description
 This service is meant to be run on the computer that is connected to the SRT telescope at Johns Hopkins University.
-In order for the user requests from the accompanying website to be fulfilled, this service must be running. The website
-will remain operational even if this service is not running, but the user requests will not be fulfilled and users, will 
-be waiting for email with their results that will not come.
+In order for the user requests from the accompanying website to be fulfilled, this service must be running.
 
 ## Installation and Setup
 1. Install Python 3.10 or higher
