@@ -66,3 +66,12 @@ class DBController:
         est = pytz.timezone('US/Eastern')
         completionTime = datetime.now(tz=est)
         self.db["SRTProcedure"].update_one({"_id": task_id}, {"$set": {"completionTime": completionTime}})
+
+    def sendServiceCheckinToDB(self):
+        """
+        Sends a service checkin to the database
+        :param service_name: the name of the service to send a checkin for
+        """
+        est = pytz.timezone('US/Eastern')
+        checkInTime = datetime.now(tz=est)
+        self.db["SRTCheckin"].insert_one({"checkInTime": checkInTime})

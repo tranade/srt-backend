@@ -10,7 +10,8 @@ def main():
     emailClient = EmailController()
     FIVE_MINUTES = 5 * 60
     while True:
-        # time.sleep(FIVE_MINUTES)
+        time.sleep(60)
+        db.sendServiceCheckinToDB()
         task = db.get_oldest_incomplete_task()
         if len(task) > 0:
             print("Running SRT process")
