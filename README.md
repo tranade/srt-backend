@@ -14,7 +14,7 @@ be waiting for email with their results that will not come.
 3. Run the following command to create a venv: `python3 -m venv venv`
 4. Activate the venv: `source venv/bin/activate`
 5. Install the requirements: `pip install -r requirements.txt`
-6. Create a `.env` file and copy the values from the `.env.example` file
+6. Create a `.env` file and copy the values from the `.env.example` file.  This a hidden file as it starts with a '.' so run `ls -a` to see it in the file tree.
 7. Populate the `.env` file with the correct values
 8. Test the service runs correctly: `python3 main.py`
 9. Now that the service is running correctly we need to setup the service to run in the background. Please close the
@@ -26,8 +26,11 @@ be waiting for email with their results that will not come.
 **NOTE:** If the computer has been shut down or the service has been stopped and has been previously setup, then the
 following steps are all that is needed to run the service:
 
+1. Additionally, please make sure the the .env file for the repo is properly populated containing the the right values. This a hidden file as it starts with a '.' so run `ls -a` to see if it exists.
 1. Activate the venv: `source venv/bin/activate`
 2. Test the services still runs correctly: `python3 main.py`
 3. Now that the service is running correctly we need to setup the service to run in the background. Please close the
    running service.
-4.Run the service in the background: `nohup python3 main.py &` 
+5. Run the service in the background: `nohup python3 main.py &`
+6. To stop the service you will need to run `ps aux | grep main.py` to get the pid of the process running
+7. Then simply run `kill <pid you found>`   
