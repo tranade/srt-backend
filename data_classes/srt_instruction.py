@@ -33,7 +33,7 @@ class SRTInstruction:
         if command_name == cls.Commands.VPLOTCLEAR.value:
             formatted_command_name = f'{command_name}'.strip()
         elif command_name == cls.Commands.X.value:
-            formatted_command_name = f':{command_name}'.strip()
+            formatted_command_name = f':{param1}'.strip() # this is formatted this as param1 is the time for the x command
         else:
             formatted_command_name = f': {command_name}'.strip()
         command = f'{formatted_command_name} {param1} {param2}'.strip()
