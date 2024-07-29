@@ -3,7 +3,7 @@ from datetime import datetime
 from typing import Any, Mapping
 
 import pymongo
-import pytz as pytz
+import pytz
 from dotenv import load_dotenv
 from pymongo import MongoClient
 
@@ -13,15 +13,17 @@ class DBController:
         load_dotenv()
         self.db = MongoClient(os.getenv("DB_URI"))[os.getenv("DB_NAME")]
 
-    def get_oldest_incomplete_task(self) -> list[Mapping[str, Any] | Any]:
+    def get_tasks_scheduled_before_now(self, current_time: datetime) -> list[Mapping[str, Any] | Any]:
         """
-        Gets the oldest incomplete SRT procedure task from the database
-        :return: the oldest incomplete SRT procedure task
+        Gets the tasks scheduled to start before or at the current time
+        :param current_time: the current time to check against scheduledTime
+        :return: the tasks scheduled to start before or at the current time
         """
         pipeline = [
             {
                 "$match": {
-                    "completionTime": {"$type": "null"}  # Filter incomplete SRT procedures
+                    "completionTime": {"$type": "null"},
+                    "scheduledTime": {"$lte": current_time}
                 }
             },
             {
@@ -37,11 +39,11 @@ class DBController:
             },
             {
                 "$sort": {
-                    "createdAt": pymongo.ASCENDING  # Sort by oldest first
+                    "scheduledTime": pymongo.ASCENDING
                 }
             },
             {
-                "$limit": 1  # Only get the oldest task
+                "$limit": 1
             },
             {
                 "$project": {
@@ -51,12 +53,19 @@ class DBController:
                     "userId": "$user._id",
                     "userName": "$user.fullName",
                     "userEmail": "$user.email",
-
                 }
             }
         ]
         task = list(self.db["SRTProcedure"].aggregate(pipeline))  # Get the first (and only) task
         return task
+
+    def mark_task_started(self, task_id: int, start_time: datetime):
+        """
+        Marks a task as started in the database
+        :param task_id: the id of the task to mark as started
+        :param start_time: the time the task started
+        """
+        self.db["SRTProcedure"].update_one({"_id": task_id}, {"$set": {"startedAt": start_time}})
 
     def mark_task_completed(self, task_id: int):
         """
@@ -70,7 +79,6 @@ class DBController:
     def sendServiceCheckinToDB(self):
         """
         Sends a service checkin to the database
-        :param service_name: the name of the service to send a checkin for
         """
         est = pytz.timezone('US/Eastern')
         checkInTime = datetime.now(tz=est)
